@@ -22,7 +22,7 @@ RECORD_SECONDS  = 5          # length of each recording
 
 # where record_one.py drops its .wav files (created automatically)
 _HERE          = os.path.dirname(os.path.abspath(__file__))
-RECORDINGS_DIR = os.path.join(_HERE, "recordings")
+RECORDINGS_DIR = os.path.join(_HERE, "lab_recordings")
 
 # array geometry
 SPEED_OF_SOUND = 343.0       # m/s (room temperature)
