@@ -1,0 +1,3 @@
+timestamp,name,location,channels,duration_sec,sample_rate,num_files
+2026-07-15 16:19,test_lab,final_recordings/test_lab.wav,4,83.46,16000,1
+2026-07-15 16:28,empty,final_recordings/empty.wav,4,15.23,16000,1
