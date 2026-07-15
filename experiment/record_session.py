@@ -1,18 +1,15 @@
 #!/usr/bin/env python3
 """
-record_session.py -- capture a 4-channel scenario recording, split it per
-channel, and log it.
+record_session.py -- capture a 4-channel scenario recording and log it.
 
 Flow:
   1. Stamp the start date + time (down to the minute).
   2. Start recording from all CHANNELS (4) of the ReSpeaker array.
   3. Press SPACE to stop; you are then asked for a name for the recording.
   4. Append the timestamp + name to a CSV log.
-  5. Because a 4-channel capture becomes more than one WAV, a directory named
-     after the recording is created and the per-channel files are saved as
-     1_<name>.wav .. 4_<name>.wav (a combined multichannel file is kept too,
-     so the locate_*.py pipeline still works). A mono (1-channel) capture would
-     instead be saved as a single flat file -- no directory needed.
+  5. Save one combined WAV -- <name>.wav -- containing all 4 channels
+     interleaved. That single file is everything the locate_*.py pipeline
+     needs (it de-interleaves the channels itself).
   6. Everything lands under final_recordings/.
 
 Run:
@@ -126,50 +123,26 @@ def sanitize(name):
     return cleaned or datetime.now().strftime("rec_%Y%m%d_%H%M%S")
 
 
-def unique_dir(base):
+def unique_path(base, ext=".wav"):
     """Avoid clobbering an existing recording of the same name."""
-    path = base
+    path = "%s%s" % (base, ext)
     n = 2
     while os.path.exists(path):
-        path = "%s_%d" % (base, n)
+        path = "%s_%d%s" % (base, n, ext)
         n += 1
     return path
 
 
 def save(raw_bytes, name):
-    """Save the recording. Returns (saved_location, list_of_files)."""
+    """Save the recording as a single combined WAV containing all CHANNELS
+    channels interleaved -- everything localization needs in one file.
+    Returns (saved_path, list_of_files)."""
     os.makedirs(FINAL_DIR, exist_ok=True)
     name = sanitize(name)
 
-    if CHANNELS == 1:
-        # Single channel -> one flat file, no directory needed.
-        path = os.path.join(FINAL_DIR, "%s.wav" % name)
-        if os.path.exists(path):
-            name = "%s_%s" % (name, datetime.now().strftime("%H%M%S"))
-            path = os.path.join(FINAL_DIR, "%s.wav" % name)
-        _write_wav(path, raw_bytes, 1)
-        return path, [path]
-
-    # Multi-channel -> a directory named after the recording, with the channels
-    # split out and numbered 1..N, plus a combined multichannel master.
-    rec_dir = unique_dir(os.path.join(FINAL_DIR, name))
-    os.makedirs(rec_dir)
-    dir_name = os.path.basename(rec_dir)
-
-    data = np.frombuffer(raw_bytes, dtype=np.int16)
-    files = []
-    for c in range(CHANNELS):
-        mono = data[c::CHANNELS].tobytes()
-        fpath = os.path.join(rec_dir, "%d_%s.wav" % (c + 1, dir_name))
-        _write_wav(fpath, mono, 1)
-        files.append(fpath)
-
-    # Combined interleaved file so locate_*.py (which expect a 4-ch WAV) still work.
-    combined = os.path.join(rec_dir, "%s_%dch.wav" % (dir_name, CHANNELS))
-    _write_wav(combined, raw_bytes, CHANNELS)
-    files.append(combined)
-
-    return rec_dir, files
+    path = unique_path(os.path.join(FINAL_DIR, name))
+    _write_wav(path, raw_bytes, CHANNELS)
+    return path, [path]
 
 
 def log_row(timestamp, name, location, raw_bytes, n_files):
