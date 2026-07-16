@@ -14,3 +14,11 @@ timestamp,name,location,channels,duration_sec,sample_rate,num_files
 2026-07-16 11:03,delete,final_recordings/delete.wav,4,62.40,16000,1
 2026-07-16 11:04,scn2_noisy_trial01,final_recordings/scn2_noisy_trial01.wav,4,74.05,16000,1
 2026-07-16 11:06,scn2_noisy_trial02,final_recordings/scn2_noisy_trial02.wav,4,71.87,16000,1
+2026-07-16 11:22,scn2_noisy_trial01_2,final_recordings/scn2_noisy_trial01_2.wav,4,96.13,16000,1
+2026-07-16 11:34,scn3_clean_trial01,final_recordings/scn3_clean_trial01.wav,4,54.53,16000,1
+2026-07-16 11:35,scn3_clean_trial02,final_recordings/scn3_clean_trial02.wav,4,57.60,16000,1
+2026-07-16 11:36,scn3_noisy_trial1,final_recordings/scn3_noisy_trial1.wav,4,57.34,16000,1
+2026-07-16 11:37,scn3_noisy_trial02,final_recordings/scn3_noisy_trial02.wav,4,54.98,16000,1
+2026-07-16 11:38,scn3_noisy_trial3,final_recordings/scn3_noisy_trial3.wav,4,54.66,16000,1
+2026-07-16 11:40,scn3_noisy_trial4,final_recordings/scn3_noisy_trial4.wav,4,56.70,16000,1
+2026-07-16 11:41,scn3_noisy_trial5,final_recordings/scn3_noisy_trial5.wav,4,57.73,16000,1
