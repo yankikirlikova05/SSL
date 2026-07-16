@@ -1,3 +1,16 @@
 timestamp,name,location,channels,duration_sec,sample_rate,num_files
 2026-07-15 16:19,test_lab,final_recordings/test_lab.wav,4,83.46,16000,1
 2026-07-15 16:28,empty,final_recordings/empty.wav,4,15.23,16000,1
+2026-07-16 10:39,tone1k_trial01,final_recordings/tone1k_trial01.wav,4,47.10,16000,1
+2026-07-16 10:41,tone1k_noise_trial01,final_recordings/tone1k_noise_trial01.wav,4,54.14,16000,1
+2026-07-16 10:42,tone5k_trial01,final_recordings/tone5k_trial01.wav,4,47.87,16000,1
+2026-07-16 10:44,tone5k_noise_trial01,final_recordings/tone5k_noise_trial01.wav,4,47.62,16000,1
+2026-07-16 10:45,noise_only,final_recordings/noise_only.wav,4,17.79,16000,1
+2026-07-16 10:46,speech_trial01,final_recordings/speech_trial01.wav,4,25.98,16000,1
+2026-07-16 10:46,urbanspeech_trial01,final_recordings/urbanspeech_trial01.wav,4,23.17,16000,1
+2026-07-16 10:47,scn1_trial01,final_recordings/scn1_trial01.wav,4,51.33,16000,1
+2026-07-16 10:59,scn2_clean_trial01,final_recordings/scn2_clean_trial01.wav,4,80.00,16000,1
+2026-07-16 11:01,scn2_clean_trial02,final_recordings/scn2_clean_trial02.wav,4,62.78,16000,1
+2026-07-16 11:03,delete,final_recordings/delete.wav,4,62.40,16000,1
+2026-07-16 11:04,scn2_noisy_trial01,final_recordings/scn2_noisy_trial01.wav,4,74.05,16000,1
+2026-07-16 11:06,scn2_noisy_trial02,final_recordings/scn2_noisy_trial02.wav,4,71.87,16000,1
