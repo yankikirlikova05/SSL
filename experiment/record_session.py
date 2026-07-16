@@ -1,22 +1,4 @@
 #!/usr/bin/env python3
-"""
-record_session.py -- capture a 4-channel scenario recording and log it.
-
-Flow:
-  1. Stamp the start date + time (down to the minute).
-  2. Start recording from all CHANNELS (4) of the ReSpeaker array.
-  3. Press SPACE to stop; you are then asked for a name for the recording.
-  4. Append the timestamp + name to a CSV log.
-  5. Save one combined WAV -- <name>.wav -- containing all 4 channels
-     interleaved. That single file is everything the locate_*.py pipeline
-     needs (it de-interleaves the channels itself).
-  6. Everything lands under final_recordings/.
-
-Run:
-    python record_session.py
-
-All audio parameters come from mic_config.py (the single source of truth).
-"""
 
 import os
 import sys
@@ -36,10 +18,6 @@ FINAL_DIR = os.path.join(_HERE, "final_recordings")
 LOG_CSV = os.path.join(FINAL_DIR, "recordings_log.csv")
 
 
-# ----------------------------------------------------------------------
-# "press SPACE to stop" -- non-blocking key watcher (POSIX / Raspberry Pi).
-# Falls back to "press ENTER" on platforms without termios (e.g. Windows).
-# ----------------------------------------------------------------------
 def wait_for_stop(stop_event):
     try:
         import termios
@@ -65,8 +43,7 @@ def wait_for_stop(stop_event):
 
 
 def record():
-    """Record until SPACE is pressed. Returns (raw_bytes, start_stamp)."""
-    import pyaudio  # lazy: only needed on the Pi, not for saving/logging helpers
+    import pyaudio
 
     pa = pyaudio.PyAudio()
     stream = pa.open(
@@ -102,9 +79,6 @@ def record():
     return b"".join(frames), start_stamp
 
 
-# ----------------------------------------------------------------------
-# saving
-# ----------------------------------------------------------------------
 def _write_wav(path, raw_bytes, n_channels):
     wf = wave.open(path, "wb")
     wf.setnchannels(n_channels)
@@ -115,7 +89,6 @@ def _write_wav(path, raw_bytes, n_channels):
 
 
 def sanitize(name):
-    """Make a filesystem-safe name; fall back to a timestamp if empty."""
     cleaned = "".join(c if (c.isalnum() or c in "-_") else "_" for c in name.strip())
     while "__" in cleaned:                      # collapse runs of underscores
         cleaned = cleaned.replace("__", "_")
@@ -124,7 +97,6 @@ def sanitize(name):
 
 
 def unique_path(base, ext=".wav"):
-    """Avoid clobbering an existing recording of the same name."""
     path = "%s%s" % (base, ext)
     n = 2
     while os.path.exists(path):
@@ -134,9 +106,7 @@ def unique_path(base, ext=".wav"):
 
 
 def save(raw_bytes, name):
-    """Save the recording as a single combined WAV containing all CHANNELS
-    channels interleaved -- everything localization needs in one file.
-    Returns (saved_path, list_of_files)."""
+    
     os.makedirs(FINAL_DIR, exist_ok=True)
     name = sanitize(name)
 
