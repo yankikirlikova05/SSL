@@ -14,7 +14,7 @@ from mic_config import (
 )
 
 _HERE = os.path.dirname(os.path.abspath(__file__))
-FINAL_DIR = os.path.join(_HERE, "final_recordings")
+FINAL_DIR = os.path.join(_HERE, "final_recordings/exp")
 LOG_CSV = os.path.join(FINAL_DIR, "recordings_log.csv")
 
 
