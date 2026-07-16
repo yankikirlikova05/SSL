@@ -22,3 +22,7 @@ timestamp,name,location,channels,duration_sec,sample_rate,num_files
 2026-07-16 11:38,scn3_noisy_trial3,final_recordings/scn3_noisy_trial3.wav,4,54.66,16000,1
 2026-07-16 11:40,scn3_noisy_trial4,final_recordings/scn3_noisy_trial4.wav,4,56.70,16000,1
 2026-07-16 11:41,scn3_noisy_trial5,final_recordings/scn3_noisy_trial5.wav,4,57.73,16000,1
+2026-07-16 11:45,speech_only11,final_recordings/speech_only11.wav,4,31.23,16000,1
+2026-07-16 11:46,noise_only11,final_recordings/noise_only11.wav,4,10.30,16000,1
+2026-07-16 11:46,speech_test_only12,final_recordings/speech_test_only12.wav,4,24.96,16000,1
+2026-07-16 11:47,scn1_trial2,final_recordings/scn1_trial2.wav,4,54.34,16000,1
